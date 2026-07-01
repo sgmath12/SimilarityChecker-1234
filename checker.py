@@ -1,4 +1,4 @@
-class StringChecker:
+class SimilarityChecker:
     def __init__(self, string_a, string_b):
         self.string_a = string_a
         self.string_b = string_b
