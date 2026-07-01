@@ -1,14 +1,22 @@
 class SimilarityChecker:
-    def __init__(self, string_a, string_b):
-        self.string_a = string_a
-        self.string_b = string_b
+    MAX_SCORE = 60
 
-    def length_score(self):
-        long_len = max(len(self.string_a), len(self.string_b))
-        short_len = min(len(self.string_a), len(self.string_b))
+    def __init__(self, text: str):
+        self.string_a, self.string_b = self._split_text(text)
 
-        if short_len == 0 or long_len >= 2 * short_len:
+    def get_length_score(self) -> int:
+        left_length = len(self.string_a)
+        right_length = len(self.string_b)
+
+        if left_length == right_length:
+            return self.MAX_SCORE
+
+        min_length = min(left_length, right_length)
+        if min_length == 0:
             return 0
 
-        gap = long_len - short_len
-        return (1 - gap / short_len) * 60
+        length_diff = abs(left_length - right_length)
+        return max(0, (min_length - length_diff) * self.MAX_SCORE / min_length)
+
+    def _split_text(self, text: str) -> tuple[str, str]:
+        return text[:text.find(",")].strip(), text[text.find(",") + 1:].strip()
