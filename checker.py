@@ -4,7 +4,7 @@ class SimilarityChecker:
     def __init__(self, text: str):
         self.string_a, self.string_b = self._split_text(text)
 
-    def get_length_score(self) -> int:
+    def get_length_score(self) -> float:
         left_length = len(self.string_a)
         right_length = len(self.string_b)
 
